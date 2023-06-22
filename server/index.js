@@ -15,21 +15,30 @@ mongoose.connect(
   }
 );
 
-app.get("/", async (req, res) => {
+app.post("/insert", async (req, res) => {
+  const { fname, lname, age, gender } = req.body;
   const user = new UserModel({
-    firstName: "Sameer",
-    lastName: "Pal",
-    age: 21,
-    gender: "Male",
+    firstName: fname,
+    lastName: lname,
+    age,
+    gender,
   });
+
   try {
     await user.save();
-    res.send("Data inserted");
-  } catch (err) {
-    console.log("error -> ", err);
+    console.log("value added");
+  } catch (e) {
+    console.log(e);
   }
 });
-
+app.get("/users", async (req, res) => {
+  try {
+    const result = await UserModel.find({});
+    res.send(result);
+  } catch (err) {
+    res.send(err);
+  }
+});
 app.listen(3001, () => {
   console.log("Server is running");
 });

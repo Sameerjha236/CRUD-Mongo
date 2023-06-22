@@ -19,5 +19,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+// also add unique and index
 const User = mongoose.model("User", UserSchema);
 export default User;
