@@ -15,11 +15,17 @@ const Users = () => {
   }, [users, name]);
 
   const updHandler = (id) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`);
-    console.log("delete called");
+    Axios.put("http://localhost:3001/update", {
+      id,
+      name,
+    });
+    console.log("values send");
   };
 
-  const deleteHandler = (id) => {};
+  const deleteHandler = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`);
+    console.log("delete");
+  };
   return (
     <div className="users">
       <h1>Users Data</h1>

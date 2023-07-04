@@ -57,10 +57,8 @@ app.put("/update", async (req, res) => {
 
 app.delete("/delete/:id", async (req, res) => {
   // :id it should be in url
-  console.log("value deleted");
   const id = req.params.id;
   await UserModel.findByIdAndDelete(id).exec();
-  console.log("value deleted");
 });
 
 app.listen(3001, () => {
