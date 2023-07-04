@@ -6,18 +6,19 @@ import "./App.css";
 function App() {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
+  const [number, setNumber] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:3001/insert", {
       fname,
       lname,
-      age,
-      gender,
+      number,
     });
     console.log("value send");
+    setFname("");
+    setLname("");
+    setNumber("");
   };
 
   return (
@@ -44,23 +45,13 @@ function App() {
           />
         </div>
         <div>
-          <label htmlFor="age">Age</label>
+          <label htmlFor="lname">Number</label>
           <input
-            type="text"
-            name="age"
-            id="age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="gender">Gender</label>
-          <input
-            type="text"
-            name="gender"
-            id="gender"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
+            type="number"
+            name="number"
+            id="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
           />
         </div>
         <button type="submit">Submit</button>

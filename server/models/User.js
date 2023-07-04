@@ -9,16 +9,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  age: {
-    type: Number,
-    required: true,
-  },
-  gender: {
+  number: {
     type: String,
     required: true,
+    unique: true,
   },
 });
 
-// also add unique and index
+// Create an index for the "number" field
+UserSchema.index({ number: 1 }, { unique: true });
+
 const User = mongoose.model("User", UserSchema);
 export default User;

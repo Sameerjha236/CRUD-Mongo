@@ -3,34 +3,50 @@ import Axios from "axios";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-
+  const [name, setName] = useState("");
   useEffect(() => {
-    Axios.get("http://localhost:3001/users")
+    Axios.get("http://localhost:3001/read")
       .then((response) => {
         setUsers(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [users, name]);
 
+  const updHandler = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`);
+    console.log("delete called");
+  };
+
+  const deleteHandler = (id) => {};
   return (
     <div className="users">
+      <h1>Users Data</h1>
       <div className="table">
-        <div className="row header">
-          <div className="cell">First Name</div>
-          <div className="cell">Last Name</div>
-          <div className="cell">Age</div>
-          <div className="cell">Gender</div>
-        </div>
         {users.map((user, key) => {
-          const { firstName, lastName, age, gender } = user;
+          const { firstName, lastName, number } = user;
           return (
             <div className="row" key={key}>
-              <div className="cell">{firstName}</div>
-              <div className="cell">{lastName}</div>
-              <div className="cell">{age}</div>
-              <div className="cell">{gender}</div>
+              <div>{firstName}</div>
+              <div>{lastName}</div>
+              <div>{number}</div>
+              <div className="edit">
+                <label htmlFor="upd">New Name :</label>
+                <input
+                  type="text"
+                  name="upd"
+                  id="upd"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              <button className="btn" onClick={() => updHandler(user._id)}>
+                Update
+              </button>
+              <button className="btn" onClick={() => deleteHandler(user._id)}>
+                Delete
+              </button>
             </div>
           );
         })}
